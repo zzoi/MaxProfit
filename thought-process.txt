@@ -6,7 +6,7 @@ when robbing the first house or the second house. If I rob the first house I giv
 second house, I give away the first and the third one.
 
 I tested the solution with some simple tests and it worked but deeper testing showed up that there was a problem. Ex:
-[20, 5, 1, 10, 50, 20, 1, 5, 10, 50, 20]  => 106 instead of 110, because instead of getting 5 (at index 7), my solution 
+[20, 50, 10, 1, 5, 20, 50, 10, 1, 5]  => 106 instead of 110, because instead of getting 5 (at index 7), my solution 
 chose 1 (at index 6). It considered better to give away the 5 instead of the 1 and 10 (10 + 1 = 11) but didn't considered
 that when robbing the 50 (at index 9) you had to give up on the 10 anyway.
 
