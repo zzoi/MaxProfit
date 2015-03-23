@@ -1,0 +1,51 @@
+Hello,
+
+I've solved this problem with a linear solution O(n).
+Starting with the fact that I'll be robbing either the first or the second house, I start comparing the minimum give away
+when robbing the first house or the second house. If I rob the first house I give away the second one and if I rob the 
+second house, I give away the first and the third one.
+
+I tested the solution with some simple tests and it worked but deeper testing showed up that there was a problem. Ex:
+[20, 5, 1, 10, 50, 20, 1, 5, 10, 50, 20]  => 106 instead of 110, because instead of getting 5 (at index 7), my solution 
+chose 1 (at index 6). It considered better to give away the 5 instead of the 1 and 10 (10 + 1 = 11) but didn't considered
+that when robbing the 50 (at index 9) you had to give up on the 10 anyway.
+
+Analysing the behavior, I noticed that the problem was always present just before giving away two houses in a row. I called this
+long jump [20 x x 10]. I called giving away one house in a row a short jump [20 x 5 x 10]. Then I noticed that the problem
+only could be present just before a long jump but only after a short jump [20 x 5 x x 50].
+
+In order to fix this problem I needed to look back just before the long jump and consider robbing the other house in the 
+previous iteration.
+
+This solution is more simple than my previous thoughts described them below.
+
+Initial thoughts:
+I start thinking about the solution of this problem using a brute force method.
+Comparing the sum of all even elements against the sum of all odd elements, plus camparing each three houses (long jump).
+This approach was missing scenarios when the jumps are not the same size [20 x x 10 x 5], like a long jump followed by 
+a short jump.
+
+Ok! lest's find a better solution then. 
+I thought maybe using some algorithm like divide and conquer and apply it to this problem.
+Getting the maximum benefit for each house in the array, defining benefit for each house as (n) - (n - 1) - (n + 1) Ex:
+
+[20, 10, 50, 5, 1] => [20-10, 10-20-50, 50-10-5, 5-50-1, 1-5] => [10, -60, 45, -46, -4]
+
+With these benefit values for each house, 
+1. I get the max befenit of 45 and I start with that house. Added this benefit to my accumulated benefit (initially zero) and
+removed the neighbors.
+2. Then I divide the array in two subarrays one to the left and one to the right of this house.
+3. For each subarray, I get the max benefit and divide them in two subarrays and so on... until there are no more elements.  
+This solution was n log(n) using a recursive method. I thought it was good and it worked with simple test cases, but when 
+I did deeper testing I found out that in some cases the result wasn't what expected for example [200, 399, 200]. 
+with this approach the solution was 399 instead of 400. 
+
+Finally I decided to re-think the whole solution. I stepped out of the computer, went to the quakes game and continued 
+re-thinking until I got the solution explained in the beginning.
+
+
+
+Best,
+Zoila
+
+
